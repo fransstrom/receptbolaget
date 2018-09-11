@@ -1,0 +1,50 @@
+//DB Connection
+
+MongoClient.connect(
+  DBurl,
+  function (err, db) {
+    //DBnamnet
+    var dbo = db.db("ingreds");
+    console.log("We are connected");
+    db.close();
+  }
+);
+    
+    
+    
+    //allt i databasen till en lista (results)
+    
+    //tabellnamnet
+    // dbo
+    //   .collection("ingreds")
+    //   .find({})
+    //   .toArray(function (err, result) {
+    //     if (err) {
+    //       throw err;
+    //     }
+    //     console.log(result);
+
+    //   });
+
+
+
+    //Lägger in hela json filen i databasen
+
+         dbo.collection("ingreds").insertMany(ldata, function (err, res) {
+       console.log("Number of documents inserted: " + res.insertedCount);
+     });
+
+
+
+// Connect to the db
+MongoClient.connect(DBurl, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("ingreds");
+  
+  //Hitta object efter Nummer
+  dbo.collection("ingreds").find({Nummer: "6134"}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+});
