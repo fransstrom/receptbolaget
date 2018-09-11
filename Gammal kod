@@ -1,0 +1,109 @@
+//DB Connection
+
+MongoClient.connect(
+  DBurl,
+  function (err, db) {
+    //DBnamnet
+    var dbo = db.db("ingreds");
+    console.log("We are connected");
+    db.close();
+  }
+);
+    
+    
+    
+    //allt i databasen till en lista (results)
+    
+    //tabellnamnet
+    // dbo
+    //   .collection("ingreds")
+    //   .find({})
+    //   .toArray(function (err, result) {
+    //     if (err) {
+    //       throw err;
+    //     }
+    //     console.log(result);
+
+    //   });
+
+
+
+    //Lägger in hela json filen i databasen
+
+         dbo.collection("ingreds").insertMany(ldata, function (err, res) {
+       console.log("Number of documents inserted: " + res.insertedCount);
+     });
+
+
+
+// Connect to the db
+//Hittar i databasen efter nummer och lägger till i en lista
+MongoClient.connect(DBurl, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("ingreds");
+
+  //Hitta object efter Nummer
+   dbo.collection("ingreds").find({Nummer: "666"}).toArray(function(err, result) {
+    if (err) throw err;
+
+    app.get("/one-item", (req, res) => {
+      res.json(result[0]);
+    });
+   // console.log(result);
+    db.close();
+  });
+});
+
+
+
+//Hur många items ska visas?
+app.get('/item/:Nummer', function(req, res) {
+
+ // res.send("tagId is set to " + req.params.Nummer);
+  res.json(ldata.slice(0, req.params.Nummer));
+ // console.log(result);
+});
+
+
+
+
+//Sök json efter nummer
+app.get('/item/:Nummer', function(req, res) {
+ // res.send("tagId is set to " + req.params.Nummer);
+  res.json(ldata[req.params.Nummer-1].Namn);
+ // console.log(result);
+});
+
+
+
+//Hittar i databasen efter parametern Nummer i urlen
+app.get('/item/:Nummer', function(req, res) {
+ MongoClient.connect(DBurl, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("ingreds");
+  //Hitta object efter Nummer
+  dbo.collection("ingreds").findOne({Nummer: req.params.Nummer}, function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+});
+});
+
+
+//Sök databas efter nummer
+app.get('/item/:Nummer', function (req, res) {
+  MongoClient.connect(DBurl, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("ingreds");
+
+    //Hitta object efter Nummer
+    dbo.collection("ingreds").findOne({
+      Nummer: req.params.Nummer
+    }, function (err, result) {
+      if (err) throw err;
+      res.json(result)
+      db.close();
+    });
+  });
+});
