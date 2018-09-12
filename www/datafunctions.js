@@ -1,6 +1,5 @@
 
 function getIng(number){
-
 fetch(`http://localhost:3000/item/${number}`)
   .then(function(response) {
     return response.json();
@@ -10,10 +9,7 @@ fetch(`http://localhost:3000/item/${number}`)
     let item=myJson;
     $('.result').append(item.Namn + '('+ item.ViktGram +'g)'+'<br>' + item.Naringsvarden.Naringsvarde[22].Namn+': ' + item.Naringsvarden.Naringsvarde[22].Varde+'<br><br>');
   });
-
-
 }
-
 
 $('.btn_get').on('click',function(e){
   let number=$('#recNr').val();

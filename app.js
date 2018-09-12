@@ -9,10 +9,19 @@ app.use(express.static("www"));
 app.listen(3000, () => console.log("Listening on port 3000"));
 // Require the built in file system module
 const fs = require("fs");
+
+
+const Ingredient = require('./classes/ingredient.class')
+
 // Read the json livsmedelsdata into ldata
 // (convert it from a JSON-string to JS data)
-const ldata = JSON.parse(fs.readFileSync("./json/livsmedelsdata.json"));
+let ldata = require("./json/livsmedelsdata.json");
 
+ingredients = ldata.map(obj => new Ingredient(obj));
+//console.log(ingredients, " ", "  ");
+
+let Routes=require('./classes/routes.class');
+new Routes(app, ingredients);
 
 
 // Retrieve
@@ -39,9 +48,7 @@ app.get('/item/:Nummer', function (req, res) {
     if (err) {
       throw err;
     }
-    
     var dbo = db.db("ingreds");
-
     dbo.collection("ingreds").findOne({
       Nummer: req.params.Nummer
     }, function (err, result) {
