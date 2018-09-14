@@ -24,7 +24,25 @@ let Routes=require('./classes/routes.class');
 new Routes(app, ingredients);
 
 
-let recipes=require('./classes/recipe.class');
+let RecipesRoute=require('./classes/recipe.class');
+
+app.get('/carbs', (req, res) => {
+ 
+
+  RecipesRoute.find().
+  then(rec => {
+    res.send(200, rec)
+    next()
+})
+.catch(err => {
+    res.send(500, err)
+});
+
+});
+
+
+
+
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/ingreds');
@@ -36,20 +54,4 @@ db.once('open', function() {
   console.log('connected to mongoose shity fuck')
 });
 
-var ingNameSchema = new mongoose.Schema({
-  Namn: String,
-});
 
-var Ing = mongoose.model('ing', ingNameSchema);
-
-var hök = new Ing({ Namn: 'Hök' });
-console.log(hök.Namn); // 'Silence'
-
-//hök.save()
-
-Ing.find({Namn: 'Hök'},function(err, ings){
-  if (err) {console.error(err);}
-
-  //console.log('hittade höken', ings);
-  
-});
