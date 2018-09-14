@@ -19,3 +19,5 @@ $('.btn_get').on('click',function(e){
  
 console.log('klick btn', number);
 });
+
+

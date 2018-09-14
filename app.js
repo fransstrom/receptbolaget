@@ -24,9 +24,9 @@ let Routes=require('./classes/routes.class');
 new Routes(app, ingredients);
 
 
-// Retrieve
-var MongoClient = require("mongodb").MongoClient;
-let DBurl = "mongodb://localhost:27017/ingreds";
+// // Retrieve
+// var MongoClient = require("mongodb").MongoClient;
+// let DBurl = "mongodb://localhost:27017/ingreds";
 
 // Connect to the db
 // MongoClient.connect(DBurl, function(err, db) {
@@ -42,24 +42,7 @@ let DBurl = "mongodb://localhost:27017/ingreds";
 // });
 
 
-//Sök databas efter nummer
-app.get('/item/:Nummer', function (req, res) {
-  MongoClient.connect(DBurl, function (err, db) {
-    if (err) {
-      throw err;
-    }
-    var dbo = db.db("ingreds");
-    dbo.collection("ingreds").findOne({
-      Nummer: req.params.Nummer
-    }, function (err, result) {
-      if (err) {
-        throw err;
-      }
-      res.json(result)
-      db.close();
-    });
-  });
-});
+
 
 
 // Create a route where we'll return
