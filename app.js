@@ -15,46 +15,15 @@ const Ingredient = require('./classes/ingredient.class')
 
 // Read the json livsmedelsdata into ldata
 // (convert it from a JSON-string to JS data)
-let ldata = require("./json/livsmedelsdata.json");
+let ingredients = require("./json/livsmedelsdata.json");
+
+
+const MongoClient = require("mongodb").MongoClient;
+let DBurl = "mongodb://localhost:27017/ingreds";
+
 
 // Retrieve
-var MongoClient = require("mongodb").MongoClient;
-
 let Routes=require('./classes/routes.class');
 new Routes(app, ingredients);
 
 
-// // Retrieve
-// var MongoClient = require("mongodb").MongoClient;
-// let DBurl = "mongodb://localhost:27017/ingreds";
-
-// Connect to the db
-// MongoClient.connect(DBurl, function(err, db) {
-//   if (err) throw err;
-//   var dbo = db.db("ingreds");
-
-//   //Hitta object efter Nummer
-//   dbo.collection("ingreds").findOne({Nummer: 2}, function(err, result) {
-//     if (err) throw err;
-//     console.log(result);
-//     db.close();
-//   });
-// });
-
-
-
-
-
-// Create a route where we'll return
-// the first 5 items from ldata as json
-app.get("/first-five", (req, res) => {
-  res.json(ldata.slice(0, 5));
-});
-
-
-
-
-// Tip:
-// Using a JSON-formatter plugin in your
-// web-browser makes JSON easier to view:
-// https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa

@@ -23,7 +23,7 @@ module.exports = class Routes {
 
             ).map(ingredient => ingredient.Namn)
             console.log(result);
-
+            res.json(result);
         });
 
         //Sök databas efter nummer
