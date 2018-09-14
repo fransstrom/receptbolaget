@@ -17,8 +17,8 @@ const Ingredient = require('./classes/ingredient.class')
 // (convert it from a JSON-string to JS data)
 let ldata = require("./json/livsmedelsdata.json");
 
-ingredients = ldata.map(obj => new Ingredient(obj));
-//console.log(ingredients, " ", "  ");
+// Retrieve
+var MongoClient = require("mongodb").MongoClient;
 
 let Routes=require('./classes/routes.class');
 new Routes(app, ingredients);
