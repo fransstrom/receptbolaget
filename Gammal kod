@@ -107,3 +107,37 @@ app.get('/item/:Nummer', function (req, res) {
     });
   });
 });
+
+
+
+//Mongoos-kod att komma igåg hur det funkar 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/ingreds');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('connected to mongoose shity fuck')
+});
+
+var ingNameSchema = new mongoose.Schema({
+  Namn: String,
+});
+
+var Ing = mongoose.model('ing', ingNameSchema);
+
+var hök = new Ing({ Namn: 'Hök' });
+console.log(hök.Namn); // 'Silence'
+
+hök.save()
+
+Ing.find({Namn: 'grgr'},function(err, ings){
+  if (err) {console.error(err);}
+
+  console.log('hittade höken', ings);
+  
+});
+
+This performs a search for all documents with a name property that begins with "Fluff" and returns the result as an array of kittens to the callback.v
+Kitten.find({ name: /^fluff/ }, callback);

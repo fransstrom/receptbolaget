@@ -15,15 +15,41 @@ const Ingredient = require('./classes/ingredient.class')
 
 // Read the json livsmedelsdata into ldata
 // (convert it from a JSON-string to JS data)
-let ingredients = require("./json/livsmedelsdata.json");
+let ldata = require("./json/livsmedelsdata.json");
 
+ingredients = ldata.map(obj => new Ingredient(obj));
+//console.log(ingredients, " ", "  ");
 
-const MongoClient = require("mongodb").MongoClient;
-let DBurl = "mongodb://localhost:27017/ingreds";
-
-
-// Retrieve
 let Routes=require('./classes/routes.class');
 new Routes(app, ingredients);
 
 
+let recipes=require('./classes/recipe.class');
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/ingreds');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('connected to mongoose shity fuck')
+});
+
+var ingNameSchema = new mongoose.Schema({
+  Namn: String,
+});
+
+var Ing = mongoose.model('ing', ingNameSchema);
+
+var hök = new Ing({ Namn: 'Hök' });
+console.log(hök.Namn); // 'Silence'
+
+//hök.save()
+
+Ing.find({Namn: 'Hök'},function(err, ings){
+  if (err) {console.error(err);}
+
+  //console.log('hittade höken', ings);
+  
+});

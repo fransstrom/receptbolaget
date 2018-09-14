@@ -23,7 +23,7 @@ module.exports = class Routes {
 
             ).map(ingredient => ingredient.Namn)
             console.log(result);
-            res.json(result);
+
         });
 
         //Sök databas efter nummer
@@ -35,6 +35,24 @@ module.exports = class Routes {
                 var dbo = db.db("ingreds");
                 dbo.collection("ingreds").findOne({
                     Nummer: req.params.Nummer
+                }, function (err, result) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.json(result)
+                    db.close();
+                });
+            });
+        });
+
+        this.app.get('/item/namn/:Namn', function (req, res) {
+            MongoClient.connect(DBurl, function (err, db) {
+                if (err) {
+                    throw err;
+                }
+                var dbo = db.db("ingreds");
+                dbo.collection("ingreds").findOne({
+                    Namn: req.params.Namn
                 }, function (err, result) {
                     if (err) {
                         throw err;
