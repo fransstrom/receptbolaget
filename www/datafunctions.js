@@ -11,6 +11,10 @@ fetch(`http://localhost:3000/item/${number}`)
   });
 }
 
+
+
+
+
 $('.btn_get').on('click',function(e){
   let number=$('#recNr').val();
 
@@ -18,6 +22,21 @@ $('.btn_get').on('click',function(e){
   getIng(number);
  
 console.log('klick btn', number);
+test1();
 });
 
 
+
+
+
+function test1(){
+fetch(`/allarecept`)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(JSON.stringify(myJson));
+    let item=myJson;
+    $('.result').append(JSON.stringify(item));
+
+  });}

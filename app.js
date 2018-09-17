@@ -20,38 +20,21 @@ let ldata = require("./json/livsmedelsdata.json");
 ingredients = ldata.map(obj => new Ingredient(obj));
 //console.log(ingredients, " ", "  ");
 
-let Routes=require('./classes/routes.class');
-new Routes(app, ingredients);
-
-
-let RecipesRoute=require('./classes/recipe.class');
-
-app.get('/carbs', (req, res) => {
- 
-
-  RecipesRoute.find().
-  then(rec => {
-    res.send(200, rec)
-    next()
-})
-.catch(err => {
-    res.send(500, err)
-});
-
-});
-
-
-
-
-
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/ingreds');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.once('open', function () {
   // we're connected!
   console.log('connected to mongoose shity fuck')
 });
+
+
+let Routes = require('./classes/routes.class');
+new Routes(app, ingredients);
+
+
+
 
 

@@ -141,3 +141,61 @@ Ing.find({Namn: 'grgr'},function(err, ings){
 
 This performs a search for all documents with a name property that begins with "Fluff" and returns the result as an array of kittens to the callback.v
 Kitten.find({ name: /^fluff/ }, callback);
+
+
+
+
+
+
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("ingreds");
+  dbo.collection("ingreds").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    let ingredients=result;
+    db.close();
+  });
+});
+
+
+
+
+//Från route.class.js
+        //Sök databas efter nummer
+        this.app.get('/item/:Nummer', function (req, res) {
+            MongoClient.connect(DBurl, function (err, db) {
+                if (err) {
+                    throw err;
+                }
+                var dbo = db.db("ingreds");
+                dbo.collection("ingreds").findOne({
+                    Nummer: req.params.Nummer
+                }, function (err, result) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.json(result)
+                    db.close();
+                });
+            });
+        });
+
+        this.app.get('/item/namn/:Namn', function (req, res) {
+            MongoClient.connect(DBurl, function (err, db) {
+                if (err) {
+                    throw err;
+                }
+                var dbo = db.db("ingreds");
+                dbo.collection("ingreds").findOne({
+                    Namn: req.params.Namn
+                }, function (err, result) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.json(result)
+                    db.close();
+                });
+            });
+        });

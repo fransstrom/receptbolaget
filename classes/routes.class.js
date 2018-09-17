@@ -1,9 +1,11 @@
 //propaply singleton sets all express routes
 const MongoClient = require("mongodb").MongoClient;
 let DBurl = "mongodb://localhost:27017/ingreds";
+let RecipesRoute = require('./recipe.class');
+let IngredsRoute = require('./ingredient.class');
 
 module.exports = class Routes {
-    constructor(app, ingredients) {
+    constructor(app) {
         this.app = app;
         this.ingredients = ingredients;
         this.setRoutes();
@@ -26,41 +28,29 @@ module.exports = class Routes {
 
         });
 
-        //Sök databas efter nummer
-        this.app.get('/item/:Nummer', function (req, res) {
-            MongoClient.connect(DBurl, function (err, db) {
-                if (err) {
-                    throw err;
-                }
-                var dbo = db.db("ingreds");
-                dbo.collection("ingreds").findOne({
-                    Nummer: req.params.Nummer
-                }, function (err, result) {
-                    if (err) {
-                        throw err;
-                    }
-                    res.json(result)
-                    db.close();
-                });
+
+
+        this.app.get('/allarecept', (req, res) => {
+          RecipesRoute.find().
+          then(rec => {
+              res.send(200, rec)
+              next()
+            })
+            .catch(err => {
+              res.send(500, err)
             });
         });
 
-        this.app.get('/item/namn/:Namn', function (req, res) {
-            MongoClient.connect(DBurl, function (err, db) {
-                if (err) {
-                    throw err;
-                }
-                var dbo = db.db("ingreds");
-                dbo.collection("ingreds").findOne({
-                    Namn: req.params.Namn
-                }, function (err, result) {
-                    if (err) {
-                        throw err;
-                    }
-                    res.json(result)
-                    db.close();
-                });
-            });
-        });
+
+        this.app.get('/allaingreds', (req, res) => {
+            IngredsRoute.find().
+            then(rec => {
+                res.send(200, rec)
+                next()
+              })
+              .catch(err => {
+                res.send(500, err)
+              });
+          });
     }
 }
