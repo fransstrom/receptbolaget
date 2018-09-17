@@ -19,7 +19,7 @@ $('.btn_get').on('click',function(e){
   let number=$('#recNr').val();
 
   e.preventDefault();
-  getIng(number);
+  //getIng(number);
  
 console.log('klick btn', number);
 test1();
@@ -30,13 +30,25 @@ test1();
 
 
 function test1(){
-fetch(`/allarecept`)
+   param=$('#recNr').val();
+fetch(`/allaingreds/${param}`)
   .then(function(response) {
     return response.json();
   })
   .then(function(myJson) {
     console.log(JSON.stringify(myJson));
     let item=myJson;
-    $('.result').append(JSON.stringify(item));
+    let ul = $('<ul class="list-unstyled"></ul>');
+   
+    item.forEach(ingred => {
+      let li = $('<li></li>');
+      li.text(ingred.Namn);
+      li.data('ingredData', ingred);
+      ul.append(li);
+    });
+    $('.result').append(ul);
 
+    
+    console.log('DATA FROM FIRST LI', $('li:nth-child(1)').data('ingredData'));
+   
   });}

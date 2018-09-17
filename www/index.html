@@ -7,16 +7,19 @@
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous" defer></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" defer>
   <script src="/datafunctions.js" defer></script>
   </head>
   <body>
+    <div class="container">
     <h1>Hej!</h1>
     <form>
-      <input id="recNr" type="numbers">
-    <button class="btn_get">Sök</button>
+      <input id="recNr" class="form-control" type="numbers">
+    <button class="btn_get btn btn-success">Sök</button>
     </form>
    <div>
      <p class="result"></p>
    </div>
+  </div>
   </body>
 </html>

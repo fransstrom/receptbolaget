@@ -27,12 +27,12 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
   // we're connected!
-  console.log('connected to mongoose shity fuck')
+  console.log('connected with mongoose')
 });
 
 
 let Routes = require('./classes/routes.class');
-new Routes(app, ingredients);
+new Routes(app);
 
 
 
