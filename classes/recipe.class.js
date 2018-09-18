@@ -1,4 +1,3 @@
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -6,19 +5,16 @@ let recipeSchema = new Schema({
     Name: String,
     Description: String,
     Ingredients: [Array],
-    comments: [{
-        body: String,
-        date: Date
-    }],
-    date: Date,
-    meta: {
-        votes: Number,
-        favs: Number,
+    Instruktioner:String,
+    IMGUrl:String,
+    date: {
+        type: Date,
+        default: Date.now()
     },
 });
 
 
-module.exports = exports =mongoose.model('recipe', recipeSchema);
+module.exports = exports = mongoose.model('recipe', recipeSchema);
 
 
 // var Carbonarasås = new Recipe({
@@ -35,11 +31,6 @@ module.exports = exports =mongoose.model('recipe', recipeSchema);
 //         body: 'jadada',
 //         date: '20198'
 //     }],
-//     date: Date.now(),
-//     meta: {
-//         votes: 12,
-//         favs: 12
-//     }
 // });
 
 
