@@ -7,3 +7,16 @@
 body{
   
 }
+
+.btn_get_ing{
+    float:right;
+}
+.ingredient{
+    height:40px;
+    font-size:18px;
+}
+
+ol, ul {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}

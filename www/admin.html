@@ -17,12 +17,8 @@
   <div class="container">
     <h1>ADMIN PAGE</h1>
     <form>
-      <input id="recNr" class="form-control" type="numbers">
-      <button class="btn_get btn btn-success">Sök</button>
+
     </form>
-    <div>
-      <p class="result"></p>
-    </div>
     <div class="col-sm-6">
     <form>
       <div class="form-group">
@@ -34,9 +30,12 @@
         <textarea type="text" class="form-control" rows="3" id="beskrivText" placeholder="Beskrivande text här"></textarea>
       </div>
      
-      <div class="form-group">
-        <label for="ingredientName">Namn på ingrediens</label>
-        <input type="email" class="form-control" id="ingredientName"  placeholder="Namn på ingrediens">
+      <div class="form-group ingpick">
+        <label for="ingredName">Namn på ingrediens</label>
+        <input list="ingredsList" id="ingredName" class="form-control" type="text" >
+        <ul id="ingredsList">
+       
+        </ul>
       </div>
      
       <div class="form-group">

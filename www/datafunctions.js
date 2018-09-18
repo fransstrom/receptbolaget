@@ -10,58 +10,39 @@ function getIng(number) {
     });
 }
 
-
-
-
-
-$('.btn_get').on('click', function (e) {
-  let number = $('#recNr').val();
-
+$('#ingredName').on('keyup', function (e) {
+  let name = $('#ingredName').val();
   e.preventDefault();
-  //getIng(number);
-  console.log('klick btn', number);
-  test1();
+  setTimeout(function () {
+    test1();
+  }, 1000);
+  console.log('keyup btn', name);
 });
-
-
-
 
 
 function test1() {
-  param = $('#recNr').val();
+  param = $('#ingredName').val();
   fetch(`/allaingreds/${param}`)
     .then(function (response) {
+      $('#ingredsList').html(' ');
       return response.json();
     })
     .then(function (myJson) {
-      console.log(JSON.stringify(myJson));
+
       let item = myJson;
-      let ul = $('<ul class="list-unstyled"></ul>');
 
       item.forEach(ingred => {
-        let li = $('<li></li>');
-        li.text(ingred.Namn);
-        li.data('ingredData', ingred);
-        li.addClass('ingList');
-        ul.append(li);
+        let list = $(`<li class="ingredient" value="${ingred.Namn}">${ingred.Namn} </li>`);
+        let btn = $(`<button class="btn_get_ing btn btn-success">Lägg till</button>`);
+        list.attr('value', ingred.Namn);
+        btn.data('ingredData', ingred);
+        list.append(btn);
+        $('#ingredsList').append(list);
       });
-      $('.result').html(ul);
-
-     // console.log('DATA FROM FIRST LI', $('li:nth-child(1)').data('ingredData'));
-
     });
-
-
 }
 
-
-$('body').on('click', 'li.ingList', function (e) {
+$('body').on('click', ('.btn_get_ing'), function (e) {
   e.preventDefault();
-
-
   console.log($(this).data('ingredData'));
 });
-
-
-
- 
