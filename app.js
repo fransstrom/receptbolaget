@@ -5,7 +5,12 @@ const app = express();
 // Tell the web server to serve files
 // from the www folder
 app.use(express.static("www"));
-
+app.use(function(req,res,next){
+res.header('Access-Control-Allow-Origin','*');
+res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
+res.header('Access-Control-Allow-Headers','Content-Type');
+next();
+})
 // Start the web server on port 3000
 app.listen(3000, () => console.log("Listening on port 3000"));
 // Require the built in file system module
@@ -29,6 +34,7 @@ db.once('open', function () {
 
 let Routes = require('./classes/routes.class');
 new Routes(app);
+
 
 //Generating the admin page
 app.get('/admin', (req,response)=>{

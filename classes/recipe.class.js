@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 let recipeSchema = new Schema({
     Name: String,
     Description: String,
-    Ingredients: [Array],
+    Ingredients: [{Ingredient:Object, Amount: Number}],
     Instruktioner:String,
     IMGUrl:String,
     date: {
@@ -16,25 +16,24 @@ let recipeSchema = new Schema({
 
 module.exports = exports = mongoose.model('recipe', recipeSchema);
 
+//  var Köttbullar = new Recipe({
+//      Name: 'Köttbullar',
+//      Description: 'Hemmalagade',
+//      Ingredients: [{
+//          Namn: 'Köttfärs',
+//          halsovarden: 500
+//      }, {
+//          Namn: 'lök',
+//          halsovarden: 100
+//      },{
+//          Namn:'Tomat',
+//          halsovarden:1000
+//      }],
+//      IMGUrl:'https://goo.gl/images/z1tbYf'
+//  });
 
-// var Carbonarasås = new Recipe({
-//     Name: 'Carbonara',
-//     Description: 'Helt underbar carbonara',
-//     Ingredients: [{
-//         Namn: 'massa bacon',
-//         halsovarden: 0
-//     }, {
-//         Namn: 'lök',
-//         halsovarden: 100
-//     }],
-//     comments: [{
-//         body: 'jadada',
-//         date: '20198'
-//     }],
-// });
 
 
-// //Carbonarasås.save();
 
 // app.get('/carb', (req, res) => {
 //     res.send('hello');
