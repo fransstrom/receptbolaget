@@ -19,7 +19,6 @@ const fs = require("fs");
 
 
 
-
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/ingreds', { useNewUrlParser: true });
 
@@ -30,6 +29,9 @@ db.once('open', function () {
   console.log('connected with mongoose')
 });
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 let Routes = require('./classes/routes.class');

@@ -1,6 +1,7 @@
 //propaply singleton sets all express routes
 let RecipesRoute = require('./recipe.class');
 let IngredsRoute = require('./ingredient.class');
+var bodyParser = require('body-parser');
 
 module.exports = class Routes {
   constructor(app) {
@@ -68,30 +69,39 @@ module.exports = class Routes {
         });
     });
 
+    this.app.post('/saverecipe/', (req, res) => {
+      let recept= new RecipesRoute(req.body);
+      recept.save().then(item => {
+        res.json(item);
+        }).catch(err => {
+          res.send(err);
+          });
+    });
     //Lägga till i databasen fungerar som nedan
 
-    var Nudlar = new RecipesRoute({
-      Name: 'Nudlar',
-      Description: 'Nudlar med gräslök',
-      Ingredients: [
-        {
-          Ingredient: {
-            Namn: 'Nudlar',
-            halsovarden: 500
-          },
-          Amount: 1112
-        },
-        {
-          Ingredient: {
-            Namn: 'Gräslök',
-            halsovarden: 500
-          },
-          Amount: 555
-        },
-      ],
-      IMGUrl:
-        'https://s-media-cache-ak0.pinimg.com/originals/87/94/29/8794292e4b7a2091ce8dfb7f236279c7.jpg'
-    });
-    Nudlar.save();
+    // var Korv = new RecipesRoute({
+    //   Name: 'Korv med brö',
+    //   Description: 'Legendarisk korv med brö',
+    //   Ingredients: [
+    //     {
+    //       Ingredient: {
+    //         Namn: 'Korv',
+    //         halsovarden: 500
+    //       },
+    //       Amount: 250
+    //     },
+    //     {
+    //       Ingredient: {
+    //         Namn: 'Bröd',
+    //         halsovarden: 500
+    //       },
+    //       Amount: 122
+    //     },
+    //   ],
+    //   Instruktioner:'Släng korven i stekpannan och låt den stekas ett tag. Lägg brödet i micron i 3sekunder, lägg korven i brödet och sedan på med ketchup och senap efter behov. Smaklig måltid!',
+    //   IMGUrl:
+    //     'https://lacuisinedelagrace.files.wordpress.com/2010/11/pa291747.jpg'
+    // });
+    // Korv.save();
   }
 };
