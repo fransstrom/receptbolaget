@@ -22,12 +22,6 @@ module.exports = class Routes {
 
     this.app.get('/allarecept/:recNamn', (req, res) => {
       let start = req.params.recNamn.toLowerCase();
-      // if (start.length < 2) {
-      //   res.json({
-      //     error: "please provide at least 2 characters"
-      //   });
-      //   return;
-      // }
       RecipesRoute.find()
         .then(rec => {
           let result = rec
@@ -77,31 +71,6 @@ module.exports = class Routes {
           res.send(err);
           });
     });
-    //Lägga till i databasen fungerar som nedan
-
-    // var Korv = new RecipesRoute({
-    //   Name: 'Korv med brö',
-    //   Description: 'Legendarisk korv med brö',
-    //   Ingredients: [
-    //     {
-    //       Ingredient: {
-    //         Namn: 'Korv',
-    //         halsovarden: 500
-    //       },
-    //       Amount: 250
-    //     },
-    //     {
-    //       Ingredient: {
-    //         Namn: 'Bröd',
-    //         halsovarden: 500
-    //       },
-    //       Amount: 122
-    //     },
-    //   ],
-    //   Instruktioner:'Släng korven i stekpannan och låt den stekas ett tag. Lägg brödet i micron i 3sekunder, lägg korven i brödet och sedan på med ketchup och senap efter behov. Smaklig måltid!',
-    //   IMGUrl:
-    //     'https://lacuisinedelagrace.files.wordpress.com/2010/11/pa291747.jpg'
-    // });
-    // Korv.save();
+  
   }
 };

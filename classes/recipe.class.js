@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 let recipeSchema = new Schema({
-    Name: String,
+    Name:{ type: String, required:true},
     Description: String,
     Ingredients: Array,
     Instruktioner:String,
@@ -31,16 +31,3 @@ module.exports = exports = mongoose.model('recipe', recipeSchema);
 //      }],
 //      IMGUrl:'https://goo.gl/images/z1tbYf'
 //  });
-
-
-
-
-// app.get('/carb', (req, res) => {
-//     res.send('hello');
-// })
-
-// Recipe.findOne({
-//     Name: 'Carbonara'
-// }, (err, rec) => {
-//     console.log(rec.Ingredients)
-// });
