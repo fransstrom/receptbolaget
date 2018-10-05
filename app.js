@@ -17,8 +17,6 @@ app.listen(3000, () => console.log("Listening on port 3000"));
 var http = require('http');
 const fs = require("fs");
 
-
-
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/ingreds', { useNewUrlParser: true });
 
@@ -32,7 +30,6 @@ db.once('open', function () {
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
@@ -40,19 +37,3 @@ let Routes = require('./classes/routes.class');
 new Routes(app);
 
 
-//Generating the admin page
-app.get('/admin', (req,response)=>{
-  fs.readFile('./www/admin.html', function(error, data) {  
-    if (error) {  
-        response.writeHead(404);  
-        response.write(error);  
-        response.end();  
-    } else {  
-        response.writeHead(200, {  
-            'Content-Type': 'text/html'  
-        });  
-        response.write(data);  
-        response.end();  
-    }  
-});  
-})

@@ -7,5 +7,4 @@ let ingredSchema = new Schema({
     collection: 'ingreds'
 });
 
-
 module.exports = exports = mongoose.model('ingreds', ingredSchema);

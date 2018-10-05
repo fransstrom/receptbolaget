@@ -7,6 +7,7 @@ let recipeSchema = new Schema({
     Ingredients: Array,
     Instruktioner:String,
     IMGUrl:String,
+    category:[],
     date: {
         type: Date,
         default: Date.now()
@@ -15,19 +16,3 @@ let recipeSchema = new Schema({
 
 
 module.exports = exports = mongoose.model('recipe', recipeSchema);
-
-//  var Köttbullar = new Recipe({
-//      Name: 'Köttbullar',
-//      Description: 'Hemmalagade',
-//      Ingredients: [{
-//          Namn: 'Köttfärs',
-//          halsovarden: 500
-//      }, {
-//          Namn: 'lök',
-//          halsovarden: 100
-//      },{
-//          Namn:'Tomat',
-//          halsovarden:1000
-//      }],
-//      IMGUrl:'https://goo.gl/images/z1tbYf'
-//  });

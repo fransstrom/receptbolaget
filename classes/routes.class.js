@@ -38,7 +38,7 @@ module.exports = class Routes {
     this.app.get('/allaingreds/', (req, res) => {
       IngredsRoute.find()
         .then(rec => {
-          res.json(rec.splice(0, 15));
+          res.json(rec.splice(0, 6));
         })
         .catch(err => {
           res.json(err);
@@ -55,7 +55,7 @@ module.exports = class Routes {
               ingredient => ingredient.Namn.toLowerCase().indexOf(start) == 0
             )
             .map(ingredient => ingredient);
-          res.json(result.splice(0, 15));
+          res.json(result.splice(0, 100));
           console.log(result);
         })
         .catch(err => {
