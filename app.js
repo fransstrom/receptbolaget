@@ -5,51 +5,35 @@ const app = express();
 // Tell the web server to serve files
 // from the www folder
 app.use(express.static("www"));
+app.use(function(req,res,next){
+res.header('Access-Control-Allow-Origin','*');
+res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
+res.header('Access-Control-Allow-Headers','Content-Type');
+next();
+})
 // Start the web server on port 3000
 app.listen(3000, () => console.log("Listening on port 3000"));
-
 // Require the built in file system module
+var http = require('http');
 const fs = require("fs");
-// Read the json livsmedelsdata into ldata
-// (convert it from a JSON-string to JS data)
-const ldata = JSON.parse(fs.readFileSync("./json/livsmedelsdata.json"));
 
-// Retrieve
-var MongoClient = require("mongodb").MongoClient;
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/ingreds', { useNewUrlParser: true });
 
-// Connect to the db
-MongoClient.connect(
-  "mongodb://localhost:27017/ingreds",
-  function(err, db) {
-    if (err) {
-      throw err;
-    }
-
-    //DBnamnet
-    var dbo = db.db("ingreds");
-    //tabellnamnet
-    dbo
-      .collection("ingreds")
-      .find({})
-      .toArray(function(err, result) {
-        if (err) {
-          throw err;
-        }
-        console.log(result);
-        db.close();
-      });
-
-    console.log("We are connected");
-  }
-);
-
-// Create a route where we'll return
-// the first 5 items from ldata as json
-app.get("/first-five", (req, res) => {
-  res.json(ldata.slice(0, 5));
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  // we're connected!
+  console.log('connected with mongoose')
 });
 
-// Tip:
-// Using a JSON-formatter plugin in your
-// web-browser makes JSON easier to view:
-// https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+let Routes = require('./classes/routes.class');
+new Routes(app);
+
+
